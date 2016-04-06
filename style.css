@@ -1,0 +1,167 @@
+
+body {
+	font-family: helvetica, arial, sans-serif;
+	color:#666;
+	margin:0;
+	padding:0;
+	font-size: 13px;
+	overflow-x: hidden; 
+
+	}
+
+a {
+	text-decoration: none;
+}
+
+header {
+	position: fixed;
+	width: 100%;
+	background-color: black;
+	padding:20px;
+	z-index: 999;
+	box-sizing: border-box;
+	}
+
+nav {	
+	text-align: left;
+	float: left;
+	width: 60%;
+	}
+
+nav ul {
+	padding-left: 33%;
+	}	 
+
+nav ul li {
+	display: inline-block;
+	list-style: none;
+	color: white;
+	margin-top: 20px;
+	}	
+
+nav ul li a {
+	color:#FFF;
+	margin-right: 10px;
+	text-transform: uppercase;
+	padding: 10px;
+	}	
+
+#logo { 
+	float: left;
+	width: 40%; 
+	}
+
+.left {
+	float: left;
+}
+
+.btn {
+	text-decoration: none;
+	border: 1px solid #999;
+	padding: 10px 20px;
+	color: #999;
+	display: inline-block;
+	margin:20px 0;
+	
+}
+
+#menu-icon {
+	display: hidden;
+	width: 40px;
+	height: 40px;
+	background: #4C8FEC url(img/menu-responsive.png) center;
+	}
+
+#menu-resp {
+	visibility: hidden;
+	background: url(img/menu-responsive.png);
+	background-size: 40px 40px;
+	width: 40px;
+	height: 40px;
+}
+
+#social {
+    position: fixed;
+    right: 0;
+    top: 30%;
+    border: 1px solid silver;
+    padding: 7px 7px 0 7px;
+    background: white;
+    border-right: none;
+    border-radius: 7px 0 0 7px;
+    z-index: 999;
+}
+
+#social img {
+    display: block;
+    padding-bottom: 10px;
+}					 
+
+.col1 {
+	width: 40%;
+	background-image: url(bg2.jpg);
+	background-size: cover;
+	height: 100%;
+	min-height: 100%;
+	position:fixed;
+}
+
+.col2 {
+	width: 40%;
+	padding: 100px 50px;
+	margin-left: 40%;
+	box-sizing: border-box;
+} 
+
+.multi article { 
+	float: left;
+	width: 45%;
+	padding-right: 10px;
+				 }
+
+.multi article img {
+	width: 100%;
+}
+
+aside#perfilPersonal {
+    margin-top: 120px;
+    padding-right: 40px;
+    text-align: right;
+    width: 40%;
+    float: right;
+    color: #FFF;
+}
+
+aside#perfilPersonal p {
+    float: right;
+}
+
+aside#perfilPersonal span {
+    font-weight: bold;
+    line-height: 20px;
+}
+
+.circular {
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+	background-image: url(img/profile.png);
+	background-size: 130px 100px;
+	background-position: -15px;
+	float: right;
+}
+
+.circular img { 
+	opacity: 0; filter: alpha(opacity=0); }
+
+#data {
+    position: absolute;
+    bottom: 0;
+    right: 40px;
+    text-align: right;
+    color: #FFF;
+}
+
+#data a {
+	color:#FFF;
+}
