@@ -1,91 +1,152 @@
-<!doctype>
-<html>
+<!DOCTYPE html>
 
-<head>
-  <title>Home nuevo cambio</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link media="(max-width: 600px)" rel="stylesheet" href="responsive.css">
+<html lang=es>
+	
+	<head>
+	
+	    <title>PETBOOK | Una red social para tu mascota</title>
+	    
+	    <!--FAVICON-->
+	    <link rel="icon" type="" href="#">
 
-</head>
+	    <!--ENLACES CSS-->
+	    <link rel="stylesheet" type="text/css" href="reset.css">	    	    
+	    <link rel="stylesheet" type="text/css" href="style.css">
+	    <link rel="stylesheet" type="text/css" href="responsive.css">
 
-<body>
+	    <!--ENLACES JS-->
+	  	<script type="text/javascript" src="#"></script>
 
-  <header>
+	    <!--TIPO DE ESCRITURA-->
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+	    
+	    <!--PANTALLA MOBILE NO ESCALABLE-->
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	
+  	</head>
 
-    <div id="logo">
-    	<a href="http://www.digitalhouse.com.ar"><img src="img/logo.svg"></a>
-    </div>
+	<body>
 
-    <nav>
+		<header>
+			<div class="contenidoCentrado">
+				<div id="logoPrincipal">
+					<img src="imagenes/logo.png" class="imagenLogo" width="272" height="68">
+				</div>
+				<nav id="menuPrincipal">
+					<ul>
+						<li><a href="" class="seleccionado">INICIO</a></li>
+						<li><a href="">PERDIDOS</a></li>
+						<li><a href="">ADOPCIONES</a></li>
+						<li><a href="">BLOG</a></li>
+						<li><a href="">CONTACTO</a></li>
+					</ul>
+				</nav>
 
-      <a href="#" id="menu-resp"> </a>
-    	<ul>
-    		<li><a href="#">Home</a></li>
-    		<li><a href="#">FAQ</a></li>
-    		<li><a href="#">Pricing</a></li>
-    		<li><a href="#">Register</a></li>
-  			<li><a href="#">Login</a></li>
-    	</ul>
-    </nav>
+			</div>		
+		
+		</header>
 
-  </header>
+		<section id="seccionBanners">
+			<div class="contenidoCentrado">
+				<h1>¿Querés encontrar a tu mascota?</h1>
+				<form>
+					<input type="text" name="ubicacion" placeholder="Ej: Belgrano, Buenos Aires">
+					<select name="tipoMascota">
+						<option value="">Mascota</option>
+						<option value="perro">Perro</option>
+						<option value="gato">Gato</option>
+					</select>
+					<select name="encontradosPerdidos">
+						<option value="">Tipo de busqueda</option>
+						<option value="perdidos">Perdidos</option>
+						<option value="encontrados">Encontrados</option>
+					</select>
+					<button>BUSCAR</button>
 
-  <div id="social"> 
-       <a href="#"> <img src="img/facebook.svg" width="30" height="40" /></a>
-       <a href="#"> <img src="img/google.svg" width="30" height="40"/></a>
-       <a href="#"> <img src="img/linkedin.svg" width="30" height="40"/></a>
-       <a href="#"> <img src="img/twitter.svg" width="30" height="40"/></a>
-       <a href="#"><img src="img/email.svg" width="30" height="40"/></a>
-       <a href="#"><img src="img/linkedin.svg" width="30" height="40"/></a>
-  </div>
+				</form>
+			</div>
+		</section>
 
-  <div class="left col1">
-    <aside id="perfilPersonal">
-      <div class="circular">
-        <img src="img/profile.png" width="300" height="225">
-      </div>
-      <p><span>Mi nombre es Carolina</span>, soy estudiante de Diseño Gráfico.</p>
-    </aside>
-    <div id="data">
-      <img src="img/email.svg" width="20" height="20">
-      <img src="img/email.svg" width="20" height="20">
-      <img src="img/email.svg" width="20" height="20">
-      <img src="img/email.svg" width="20" height="20">
-      <p>Realizado por: Carolina Spinetta | <a href="http://www.digitalhouse.com">DigitalHouse</a> | 2016 </p>
-    </div>  		
-  </div>
+		<section id="seccionesSitio">
+			
+			<div class="contenidoCentrado">
+				<article name="animalesEnAdopcion">
+				
+					<img src="imagenes/mascotas-perdidas.png" class="seccionesImagen" width="276" height="293">	
+					<h2>MASCOTAS PERDIDAS</h2>
+					<p>Utilizá nuestro localizador para encontrar tu mascota perdida.</p>
 
-  <div class="left col2">
-    <section class="full">
-    	<article>
-    		<h1>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.</h1>
-    		<p>Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original.</p>
+				</article>
 
-    		<a href="#" class="btn">Learn More </a>
-    	</article>
+				<article name="animalesEnAdopcion">
+				
+					<img src="imagenes/adopciones.png" class="seccionesImagen" width="276" height="293">	
+					<h2>MASCOTAS EN ADOPCIÓN</h2>
+					<p>Estas mascotas buscan un lugar en tu familia. Compromiso.</p>
 
+				</article>
 
-    </section>
+				<article name="animalesEnAdopcion">
+				
+					<img src="imagenes/novedades.png" class="seccionesImagen" width="276" height="293">	
+					<h2>NUESTROS CONSEJOS</h2>
+					<p>Leé nuestros consejos y novedades para el cuidado de tu mascota.</p>
 
-    <section class="multi">
-    	<h2>Recent Work</h2>
-    	<article>
-    		<img src="bg.jpg" width="200" />
-    		<h3>Lorem Ipsum es simplemente</h3>
-    		<p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.</p>
-    	</article>
-    	<article>
-    		<img src="bg.jpg" width="200" />
-    		<h3>Lorem Ipsum es simplemente</h3>
-    		<p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.</p>
-    	</article>
+				</article>
+			</div>
 
-    </section>
+		</section>
+		
+		<section id="seccionNovedades" class="contenidoCentrado">
+			<div class="lineaCorta"></div>
+			<h2><span>CONSEJOS</span> PARA EL <span>CUIDADO</span> DE TUS ANIMALES</h2>
+			<div class="lineaCorta"></div>
+			
+			<div class="contenedorNoticias">
+				
+				<article class="posteoNoticia">
+					<img src="imagenes/imagen-noticia.jpg" width="314" height="314">
+					<div class="overlay"></div>
+					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
+				</article>
 
-  </div>
+				<article class="posteoNoticia">
+					<img src="imagenes/imagen-noticia.jpg" width="314" height="314">
+					<div class="overlay"></div>
+					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
+				</article>
 
-</body>
+				<article class="posteoNoticia">
+					<img src="imagenes/imagen-noticia.jpg" width="314" height="314">
+					<div class="overlay"></div>
+					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
+				</article>
+
+				<article class="posteoNoticia">
+					<img src="imagenes/imagen-noticia.jpg" width="314" height="314">
+					<div class="overlay"></div>
+					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
+				</article>
+
+				<article class="posteoNoticia">
+					<img src="imagenes/imagen-noticia.jpg" width="314" height="314">
+					<div class="overlay"></div>
+					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
+				</article>
+
+				<article class="posteoNoticia">
+					<img src="imagenes/imagen-noticia.jpg" width="314" height="314">
+					<div class="overlay"></div>
+					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
+				</article>
+				
+
+			</div>
+
+		</section>
+
+		<footer>Este es el footer. </footer>
+
+	</body>
 
 </html>
