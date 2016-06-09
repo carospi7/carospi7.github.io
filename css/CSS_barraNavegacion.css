@@ -1,0 +1,107 @@
+/* Barra de navegación */
+
+header {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    padding: 10px 0;
+    background-color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.4s ease;
+}
+
+input[type="checkbox"] {
+	width: initial !important;
+	margin: 20px 0 ;
+}
+
+.contenidoCentrado {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+#logoPrincipal {
+	width: 30%;
+	display: inline-block;
+}
+
+#menuPrincipal {
+	width: 70%;
+	float:right;
+	padding-top: 40px;
+	text-align:right;
+}
+
+#menuPrincipal ul li {
+	margin-left: 40px;
+	display: inline-block;
+	font-size: 14px;
+}
+
+#menuPrincipal li a {
+	color: #000;
+}
+
+#menuPrincipal li a:hover {
+	border-top: 3px solid #312633;
+	padding-top: 10px;
+}
+
+#menuPrincipal li a.seleccionado {
+	border-top: 3px solid #312633;
+	padding-top: 10px;
+}
+
+.lineaCorta {
+    background-color: #312633;
+    height: 5px;
+    width: 100px;
+    margin: 0 auto;
+}
+
+/* Barra de navegación Sticky */
+
+header .logoBlanco {
+	display: none;
+}
+
+header.sticky {
+  font-size: 18px;
+  line-height: 30px;
+  height: 30px;
+  background: #2C3942;
+  text-align: left;
+  padding-left: 20px;
+  transition: all 0.4s ease;
+}
+
+header.sticky img {
+	display: none;
+}
+
+header.sticky .logoBlanco {
+	display: initial;
+}
+
+header.sticky .logoBlanco img {
+	display: initial;
+}
+
+header.sticky #menuPrincipal {
+	padding-top: 0;
+	text-align: center;
+}
+
+header.sticky #menuPrincipal ul li a {
+	color:#fff;
+	border-top: none;
+	font-size: 12px;
+}
+
+header.sticky #menuPrincipal ul li #botonConectar {
+	background: #00e2c5;
+	color: #2C3942;
+	padding: 5px;
+}
