@@ -63,25 +63,17 @@
 <html>
 	
 	<head>
-	
+		<!-- codificación texto -->
+	    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>	
+
 	    <title>PETBOOK | Una red social para tu mascota</title>
 	    
-	    <!-- favicon -->
-	    <?php include_once 'html/WEB_favicon.php'; ?>
-
-	    <!-- enlaces CSS -->
-	    <?php include_once 'html/CSS_reset.php'; ?>
-	  	<?php include_once 'html/CSS_barraNavegacion.php'; ?>
-	  	<?php include_once 'html/CSS_footer.php'; ?>
-	    <link rel='stylesheet' type='text/css' href='css/CSS_sitios/index.css'>
-	    <link rel='stylesheet' type='text/css' href='css/CSS_sitios/indexResponsive.css'>
+	    <!-- enlaces CSS y favicon-->
+	    <?php include_once 'html/elementos/enlaces_generales.php'; ?>
 
 	    <!-- enlaces JS -->
 	  	<script type='text/javascript' src='js/JavaScript_sitios/index.js'></script>
-	  	<?php  include_once 'html/JavaScript_barraNavegacion.php'; ?>
-
-	    <!-- codificación texto -->
-	    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>	    
+	  	<?php  include_once 'html/elementos/navegacion_sticky.php'; ?>    
 	    
 	    <!-- pantalla mobile no escalable -->
 	    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
@@ -90,7 +82,7 @@
 	<body>
 
 		<!-- barra de navegación PHP -->
-		<?php include_once 'html/WEB_barraNavegacion.php'; ?>
+		<?php include_once 'html/elementos/WEB_barraNavegacion.php'; ?>
 
 		<section id='seccionBanners'>
 		
@@ -361,7 +353,7 @@
 		</section>
 
 		<!-- Pie de pagina (footer) -->
-		<?php include_once 'html/WEB_footer.php'; ?>
+		<?php include_once 'html/elementos/WEB_footer.php'; ?>
 
 	</body>
 
