@@ -136,4 +136,25 @@
 		return null;
 	}
 
+	public function setDato($tipo, $dato, $id)
+	{
+		$id = $id - 1;
+		$usuariosJson = $this->traerUsuariosJson();
+		$usuarioModificar = json_decode($usuariosJson[$id], 1);
+		$usuarioModificar[$tipo] = $dato;
+		$usuarioModificar = json_encode($usuarioModificar);
+		unset($usuariosJson[$id]);
+		$usuariosJson[$id] = $usuarioModificar;
+		$insert='';
+
+		$fichero = 'usuarios/usuarios.json';
+		$hola = fopen($fichero, 'w+');
+		$hola = fwrite($hola, '');
+
+		foreach ($usuariosJson as $key => $value)
+		{
+			$insert = file_put_contents('usuarios/usuarios.json', $value . PHP_EOL, FILE_APPEND);
+		}
+	}
+
 } ?>

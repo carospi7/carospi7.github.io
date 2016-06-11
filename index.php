@@ -1,7 +1,5 @@
-<?php
+<?php require_once 'soporte.php';
 
-	require_once 'soporte.php';
-	
 	$nombre = '';
 	$apellido = '';
 	$password = '';
@@ -73,7 +71,7 @@
 
 	    <!-- enlaces JS -->
 	  	<script type='text/javascript' src='js/JavaScript_sitios/index.js'></script>
-	  	<?php  include_once 'html/elementos/navegacion_sticky.php'; ?>    
+	  	<?php include_once 'html/elementos/navegacion_sticky.php'; ?>    
 	    
 	    <!-- pantalla mobile no escalable -->
 	    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
@@ -261,6 +259,11 @@
 					<input id='submit' type='submit' name='submit' value='conectarse' />
 				
 				</div>
+				<div>
+					
+					<a href="recuperarContraseña.php">Olvide mi password</a>
+
+				</div>
 			
 			</form>
 
@@ -358,3 +361,9 @@
 	</body>
 
 </html>
+
+cuando inicio sesion,
+
+cambio los datos del usuario,
+
+tambien los tengo que cambiar en sesion. sino me genera un error,

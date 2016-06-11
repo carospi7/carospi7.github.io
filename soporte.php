@@ -7,6 +7,7 @@ require_once 'php/repositorioUsuario.php';
 require_once 'php/repositorioUsuarioJSON.php';
 require_once 'php/validar.php';
 require_once 'php/usuario.php';
+require_once 'php/email.php';
 
 $tipoRepositorio = 'JSON';
 $repositorio = null;

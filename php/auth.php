@@ -44,7 +44,6 @@
     public function desconectarse()
     {
         session_destroy();
-        
         $this->borrarCookie('usuarioLogueado');
     }
 

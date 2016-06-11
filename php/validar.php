@@ -19,10 +19,6 @@
             $this->repositorioUsuario = $repositorioUsuario;
         }
 
-    	private function __construct()
-        {
-    	}
-
         // VALIDACIÓN REGISTRO
         public function validarRegistroUsuario($nombre, $apellido, $password, $passwordConfirm, $email, $fechaNacimiento)
         {
@@ -53,7 +49,7 @@
             return $errores;
         }
 
-        private function validarNombre($nombre)
+        public function validarNombre($nombre)
         {
             $expresionNombre = '[a-zA-Z]';
             
@@ -142,7 +138,7 @@
             }            
         }   
         
-        private function validarEmail($email)
+        public function validarEmail($email)
         {
             if ($email == '')
             {
