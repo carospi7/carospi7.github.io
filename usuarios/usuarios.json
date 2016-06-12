@@ -1,6 +1,2 @@
-{"id":1,"nombre":"Francisco Tom\u00e1s","apellido":"L\u00f3pez","password":"$2y$10$\/uAuy3zzkF1KKYOdPrevlOiZf3Puj1AzWkVnGbq8Accy3tOlQ1gK6","email":"frammlopez@gmail.com","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
-{"id":2,"nombre":"Federico","apellido":"lopez","password":"$2y$10$lLfoouzV2BB33OWwcWehPeeBOykMLiLhaNEhRoClwn3occEtFGP42","email":"notariolopez@hotmai.com.ar","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
-{"id":3,"nombre":"Dolores Camila","apellido":"martinez","password":"$2y$10$W5u8D0y2YNJ\/tE0N79eHvu2R\/633gdQ7oISbNhsUBXsGpVYuLT9Ca","email":"nicolas@gmail.com","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
-{"nombre":"Francisco"}
-{"nombre":"Francisco"}
-{"nombre":"Francisco"}
+{"id":1,"nombre":"Francisco","apellido":"L\u00f3pez","password":"$2y$10$MwWwODhDlSzS524\/qHdliOkgqvXv42xbuSzkjWR8EF27dVr6wxSPi","email":"frammlopez@gmail.com","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
+{"id":2,"nombre":"Dolores Camila","apellido":"Fontan","password":"$2y$10$djFSDR3LJ9m8uTcqNNOLZ.S2mfE5rzYNTEL2v\/GA4AHwhcOeKgh1q","email":"lolacfontan@gmail.com","fechaNacimiento":"28\/01\/1994","rutaImagen":null}

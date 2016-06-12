@@ -1,60 +1,75 @@
 <?php require_once 'soporte.php';
 
-	$nombre = '';
-	$apellido = '';
-	$password = '';
-	$passwordConfirm = '';
-	$email = '';
-	$fechaNacimiento = '';
+$nombre = '';
+$apellido = '';
+$password = '';
+$passwordConfirm = '';
+$email = '';
+$fechaNacimiento = '';
 		
-	if ($_POST)
-	{
-		if ($_POST['submit'] === 'registrarse')
+if ($_POST)
+{
+	if ($_POST['submit'] === 'registrarse')
+	{	
+		// Datos POST
+		$nombre = $_POST['nombre'];
+		$apellido = $_POST['apellido'];
+		$password = $_POST['password'];
+		$passwordConfirm = $_POST['passwordConfirm'];
+		$email = $_POST['email'];
+		$fechaNacimiento = $_POST['fechaNacimiento'];
+
+		// Validación
+		$erroresValiadcion = $validar->validacionUsuario($nombre, $apellido, $password, $passwordConfirm, $email, $fechaNacimiento);
+		$validarEmail = $repositorio->getRepositorioUsuario()->existeEmail($email);
+		
+		if ($validarEmail === true)
+	    {
+	        $erroresValiadcion = [];
+	        $erroresValiadcion['usuarioInvalido'] = 'El usuario ya existe';
+	    }
+	    
+		// Registrar usuario
+		if (empty($erroresValiadcion))
 		{	
-			// DATOS POST
-			$nombre = $_POST['nombre'];
-			$apellido = $_POST['apellido'];
-			$password = $_POST['password'];
-			$passwordConfirm = $_POST['passwordConfirm'];
-			$email = $_POST['email'];
-			$fechaNacimiento = $_POST['fechaNacimiento'];
+			$usuario = new usuario($nombre, $apellido, $password, $email, $fechaNacimiento);
+			$usuario->setPassword($password);
+			$usuario->generarId();
+			$repositorio->getRepositorioUsuario()->guardarUsuario($usuario);
 
-			// VALIDACIÓN REGISTRO
-			$erroresRegistro = $validar->validarRegistroUsuario($nombre, $apellido, $password, $passwordConfirm, $email, $fechaNacimiento);
-
-			// CREAR USUARIO
-			if (empty($erroresRegistro))
-			{	
-				$usuario = new Usuario($nombre, $apellido, $password, $email, $fechaNacimiento);
-				$usuario->setPassword($password);
-				$usuario->generarId();
-
-				// GUARDAR USUARIO EN ARCHIVO JSON
-				$repositorio->getRepositorioUsuario()->guardarUsuario($usuario);
-			}
+			$nombre = '';
+			$apellido = '';
+			$password = '';
+			$passwordConfirm = '';
+			$email = '';
+			$fechaNacimiento = '';
 		}
-		else if ($_POST['submit'] === 'conectarse')
+	}
+	else if ($_POST['submit'] === 'conectarse')
+	{
+		// Datos POST
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+
+		// Validación
+		$erroresValiadcion = $validar->validarConectarse($email, $password);
+
+		if (empty($erroresValiadcion))
 		{
-			// DATOS POST
-			$email = $_POST['email'];
-			$password = $_POST['password'];
-
-			// VALIDACIÓN INICIO SESION
-			$erroresConexion = $validar->validarConectarse($email, $password);
-
-			if (empty($erroresConexion))
+			// Conectar usuario
+			$usuario = $repositorio->getRepositorioUsuario()->buscarUsuarioPorEmail($email);
+			$auth->conectarse($usuario);
+			
+			// Recordar usuario
+			if (isset($_POST['recordame']))
 			{
-				// CONECTARSE
-				$usuario = $repositorio->getRepositorioUsuario()->buscarUsuarioPorEmail($email);
-				$auth->conectarse($usuario );
-				
-				// RECORDAR USUARIO
-				if (isset($_POST['recordame']))
-				{
-					$auth->crearCookie($usuario);
-				}
+				$auth->crearCookie($usuario);
 			}
+
+			$email = '';
+			$password = '';	
 		}
+	}
 
 } ?>
 
@@ -72,7 +87,14 @@
 	    <!-- enlaces JS -->
 	  	<script type='text/javascript' src='js/JavaScript_sitios/index.js'></script>
 	  	<?php include_once 'html/elementos/navegacion_sticky.php'; ?>    
-	    
+	    <?php 
+
+	    if ($_POST['submit'] === 'registrarse')
+	    {
+	    	echo "<script> window.document.querySelector('#BlackLayer').style.display='block' </script>";
+	    }
+
+	    ?>
 	    <!-- pantalla mobile no escalable -->
 	    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
 	

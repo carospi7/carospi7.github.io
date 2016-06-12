@@ -34,10 +34,11 @@
 	<li><a href='#'>ADOPCIONES</a></li>
 	<li><a href='#'>BLOG</a></li>
 	<li><a href='".$redireccionSitio."'><button id='".$idBoton."'>".$estadoSesion."</button></a></li>";
-
+	
 	if ($estadoSesion === 'DESCONECTARSE')
 	{
-		echo "<li><a href='perfilUsuario.php'>Config</a></li>";
+		echo "<li><a href='perfilUsuario.php'>Config</a></li>
+		<li>".$_SESSION['usuarioLogueado']->getNombre()." ".$_SESSION['usuarioLogueado']->getApellido()."</li>";
 	}
 
 	echo "</ul>	
