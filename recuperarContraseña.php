@@ -13,12 +13,13 @@
 	
 		if ($validacion === null)
 		{
-			$repositorio = new repositorioUsuarioJSON();
-			$existeEmail = $repositorio->existeEmail($destinatario);
+			$existeEmail = $repositorio->getRepositorioUsuario()->existeEmail($destinatario);
 
 			if ($existeEmail === true)
 			{
 				$enviadorRecuperarContraseña = new email($destinatario, $asunto, $contenido);
+				$codigo = $enviadorRecuperarContraseña->generarContraseña();
+				$enviadorRecuperarContraseña->setContenido($codigo);
 				$enviadorRecuperarContraseña->enviarEmail();
 				$estadoSitio = 'modificado';
 			}

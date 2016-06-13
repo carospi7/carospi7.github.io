@@ -6,7 +6,7 @@ $password = '';
 $passwordConfirm = '';
 $email = '';
 $fechaNacimiento = '';
-		
+
 if ($_POST)
 {
 	if ($_POST['submit'] === 'registrarse')
@@ -35,6 +35,7 @@ if ($_POST)
 			$usuario = new usuario($nombre, $apellido, $password, $email, $fechaNacimiento);
 			$usuario->setPassword($password);
 			$usuario->generarId();
+			$usuario->guardarImagen();
 			$repositorio->getRepositorioUsuario()->guardarUsuario($usuario);
 
 			$nombre = '';
@@ -43,6 +44,7 @@ if ($_POST)
 			$passwordConfirm = '';
 			$email = '';
 			$fechaNacimiento = '';
+			$imagen = '';
 		}
 	}
 	else if ($_POST['submit'] === 'conectarse')
@@ -229,8 +231,6 @@ if ($_POST)
 		
 		</section>
 
-
-
 		<!-- Conectarse -->
 		<section id='conectarse'>
 			
@@ -363,7 +363,7 @@ if ($_POST)
 				<div>
 
 					<label for='imagen'>Avatar:</label>
-					<input id='imagen' name='imagen' type='file'/>
+					<input id='imagen' name='imagen' type='file' value='<?php echo $imagen ?>' />
 
 				</div>
 				<br>
