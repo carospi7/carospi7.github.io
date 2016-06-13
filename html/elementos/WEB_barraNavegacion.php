@@ -56,7 +56,7 @@
 					<a href='#'>BLOG</a>
 				
 				</li>
-				<li><a href='".$redireccionSitio."'><button id='".$idBoton."'>".$estadoSesion."</button></a></li>";
+				<li><a href='".$redireccionSitio."'><button id='".$idBoton."'>".$estadoSesion."</button></a></li>");
 	
 	if ($estadoSesion === 'DESCONECTARSE')
 	{
@@ -64,7 +64,7 @@
 		<li>".$_SESSION['usuarioLogueado']->getNombre()." ".$_SESSION['usuarioLogueado']->getApellido()."</li>";
 	}
 
-	echo "</ul>	
+	echo ("</ul>	
 		
 		</nav>
 

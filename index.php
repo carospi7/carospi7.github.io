@@ -84,22 +84,13 @@ if ($_POST)
 	    <!-- enlaces CSS y favicon-->
 	    <?php include_once 'html/elementos/enlaces_generales.php'; ?>
 	    
-<!-- bootstrap -->
+		<!-- bootstrap -->
 	    <!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<!-- FIN bootstrap -->
+		<!-- FIN bootstrap -->
 	    <!-- enlaces JS -->
 	  	<script type='text/javascript' src='js/JavaScript_sitios/index.js'></script>
-	  	<?php  include_once 'html/elementos/navegacion_sticky.php'; ?> 
-<?php 
-
-	    if ($_POST['submit'] === 'registrarse')
-	    {
-	    	echo "<script> window.document.querySelector('#BlackLayer').style.display='block' </script>";
-	    }
-
-	    ?>
-
+	  	<?php  include_once 'html/elementos/navegacion_sticky.php'; ?>
 	    
 	    <!-- pantalla mobile no escalable -->
 	    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
