@@ -27,7 +27,7 @@ private function traerUsuariosJson()
 	return $usuariosJson;
 }
 
-public function convertirObjetosEnUsuarios(array $usuariosJson)
+public function convertirObjetosEnUsuarios(Array $usuariosJson)
 {	
 	$objetosEnUsuarios = [];
 
@@ -150,19 +150,8 @@ public function modificarRegistro($id, $nombre, $apellido, $password, $email, $f
 	$modificacion[$id-1]['password'] = $password;
 	$modificacion[$id-1]['email'] = $email;
 	$modificacion[$id-1]['fechaNacimiento'] = $fechaNacimiento;
-	$objetos = '';
-
-	foreach ($modificacion as $key => $value)
-	{
-		var_dump(json_encode($value));
-		echo "<br>";
-		echo "<br>";
-	}
-	var_dump($objetos);exit;
-	exit;
 	$modificacion = json_encode($modificacion);
-	var_dump($modificacion);exit;
-	file_put_contents($ruta, $modificacion.PHP_EOL);
+	file_put_contents($ruta, $modificacion.PHP_EOL, FILE_APPEND);
 }
 
 } ?>

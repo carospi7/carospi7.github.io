@@ -1,5 +1,2 @@
 {"id":1,"nombre":"Francisco","apellido":"L\u00f3pez","password":"$2y$10$MwWwODhDlSzS524\/qHdliOkgqvXv42xbuSzkjWR8EF27dVr6wxSPi","email":"frammlopez@gmail.com","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
 {"id":2,"nombre":"Dolores Camila","apellido":"Fontan","password":"$2y$10$djFSDR3LJ9m8uTcqNNOLZ.S2mfE5rzYNTEL2v\/GA4AHwhcOeKgh1q","email":"lolacfontan@gmail.com","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
-{"id":3,"nombre":"pancho","apellido":"L\u00f3pez","password":"$2y$10$mBsA66MCUvAfwVfpfZh2uu0v7BopZQYwWJsF2Kd97VmOtLhAE3lp6","email":"frammlopez@gmail.com.ar","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
-{"id":4,"nombre":"Martin","apellido":"Martin","password":"$2y$10$zj..eanAXIAT9ClV5UmnbeC0jZ9qoYZdWsgj6v2SzjlsoFtvl8gcC","email":"martin@almeida.com","fechaNacimiento":"28\/01\/1994","rutaImagen":"imagenes\/img_perfiles\/4.png"}
-{"id":5,"nombre":"marcelo","apellido":"nery","password":"$2y$10$inn7p\/YTX0AFeDD2.H812.xoX8aGomdrcqGZKoxHEheNsNECvDIDm","email":"marcelo@gmail.com","fechaNacimiento":"28\/01\/1994","rutaImagen":"imagenes\/img_perfiles\/5.png"}

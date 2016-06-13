@@ -6,7 +6,7 @@ $password = '';
 $passwordConfirm = '';
 $email = '';
 $fechaNacimiento = '';
-
+		
 if ($_POST)
 {
 	if ($_POST['submit'] === 'registrarse')
@@ -35,7 +35,6 @@ if ($_POST)
 			$usuario = new usuario($nombre, $apellido, $password, $email, $fechaNacimiento);
 			$usuario->setPassword($password);
 			$usuario->generarId();
-			$usuario->guardarImagen();
 			$repositorio->getRepositorioUsuario()->guardarUsuario($usuario);
 
 			$nombre = '';
@@ -44,7 +43,6 @@ if ($_POST)
 			$passwordConfirm = '';
 			$email = '';
 			$fechaNacimiento = '';
-			$imagen = '';
 		}
 	}
 	else if ($_POST['submit'] === 'conectarse')
@@ -85,11 +83,15 @@ if ($_POST)
 	    
 	    <!-- enlaces CSS y favicon-->
 	    <?php include_once 'html/elementos/enlaces_generales.php'; ?>
-
+	    
+<!-- bootstrap -->
+	    <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!-- FIN bootstrap -->
 	    <!-- enlaces JS -->
 	  	<script type='text/javascript' src='js/JavaScript_sitios/index.js'></script>
-	  	<?php include_once 'html/elementos/navegacion_sticky.php'; ?>    
-	    <?php 
+	  	<?php  include_once 'html/elementos/navegacion_sticky.php'; ?> 
+<?php 
 
 	    if ($_POST['submit'] === 'registrarse')
 	    {
@@ -97,6 +99,8 @@ if ($_POST)
 	    }
 
 	    ?>
+
+	    
 	    <!-- pantalla mobile no escalable -->
 	    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
 	
@@ -108,7 +112,7 @@ if ($_POST)
 
 		<section id='seccionBanners'>
 		
-			<div class='contenidoCentrado'>
+			<div class='container centrar'>
 		
 				<h1>¿Querés encontrar a tu mascota?</h1>
 				<form>
@@ -136,11 +140,11 @@ if ($_POST)
 
 		</section>
 
-		<section id='seccionesSitio'>
+		<section id='categoriasSitio' class="jumbotron">
 			
-			<div class='contenidoCentrado'>
+			<div class="container centrar">
 			
-				<article name='animalesEnAdopcion'>
+				<article class="col-md-4">
 				
 					<img src='imagenes/img_sitio/mascotas-perdidas.png' class='seccionesImagen' width='276' height='293'>	
 					<h2>MASCOTAS PERDIDAS</h2>
@@ -148,7 +152,7 @@ if ($_POST)
 
 				</article>
 
-				<article name='animalesEnAdopcion'>
+				<article class="col-md-4">
 				
 					<img src='imagenes/img_sitio/adopciones.png' class='seccionesImagen' width='276' height='293'>	
 					<h2>MASCOTAS EN ADOPCIÓN</h2>
@@ -156,7 +160,7 @@ if ($_POST)
 
 				</article>
 
-				<article name='animalesEnAdopcion'>
+				<article class="col-md-4">
 				
 					<img src='imagenes/img_sitio/novedades.png' class='seccionesImagen' width='276' height='293'>	
 					<h2>NUESTROS CONSEJOS</h2>
@@ -168,50 +172,50 @@ if ($_POST)
 
 		</section>
 		
-		<section id='seccionNovedades' class='contenidoCentrado'>
+		<section id='seccionNovedades' class='centrar container'>
 			
 			<div class='lineaCorta'></div>
 			<h2><span>CONSEJOS</span> PARA EL <span>CUIDADO</span> DE TUS ANIMALES</h2>
 			<div class='lineaCorta'></div>
 			
-			<div class='contenedorNoticias'>
+			<div class=''>
 				
-				<article class='posteoNoticia'>
+				<article class="col-md-4">
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class='posteoNoticia'>
+				<article class="col-md-4">
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class='posteoNoticia'>
+				<article class="col-md-4">
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class='posteoNoticia'>
+				<article class="col-md-4">
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class='posteoNoticia'>
+				<article class="col-md-4">
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class='posteoNoticia'>
+				<article class="col-md-4">
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
@@ -230,6 +234,8 @@ if ($_POST)
 			<button id='botonSeccionRegistrarse'>Registrarse</button>
 		
 		</section>
+
+
 
 		<!-- Conectarse -->
 		<section id='conectarse'>
@@ -281,7 +287,7 @@ if ($_POST)
 					<input id='submit' type='submit' name='submit' value='conectarse' />
 				
 				</div>
-				<div>
+<div>
 					
 					<a href="recuperarContraseña.php">Olvide mi password</a>
 
@@ -363,7 +369,7 @@ if ($_POST)
 				<div>
 
 					<label for='imagen'>Avatar:</label>
-					<input id='imagen' name='imagen' type='file' value='<?php echo $imagen ?>' />
+					<input id='imagen' name='imagen' type='file'/>
 
 				</div>
 				<br>
@@ -381,6 +387,7 @@ if ($_POST)
 		<?php include_once 'html/elementos/WEB_footer.php'; ?>
 
 	</body>
+
 
 </html>
 

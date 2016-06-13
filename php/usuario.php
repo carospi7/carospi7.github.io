@@ -101,16 +101,14 @@
 
 	public function guardarImagen()
 	{
-		if ($_FILES['imagen']['error'] == UPLOAD_ERR_OK)
+		if ( $_FILES['imagen']['error'] == UPLOAD_ERR_OK )
 		{
-			$rutaArchivoSubido = $_FILES['imagen']['tmp_name'];
-			$nombreImagenSubida = $_FILES['imagen']['name'];
-			$extension = pathinfo($nombreImagenSubida, PATHINFO_EXTENSION);
-			$rutaArchivoGuardar = 'imagenes/img_perfiles';
-			$nombreImagenGuardar = $this->getId() . '.' . $extension;
-			
-			move_uploaded_file ($rutaArchivoSubido, "$rutaArchivoGuardar/$nombreImagenGuardar");
-			$this->rutaImagen="$rutaArchivoGuardar/$nombreImagenGuardar";
+			$extension = pathinfo($nombreImagen, PATHINFO_EXTENSION);
+			$nombreImagen = $this->getId() . '.' . $extension;
+			$rutaGuardar = dirname( imagenes/img_perfil ) . $nombreImagen;
+			move_uploaded_file ( $_FILES['imagen']['tmp_name'], $rutaGuardar );
+
+			return $this->rutaImagen=$rutaGuardar;
 		}
 	}
 } ?>
