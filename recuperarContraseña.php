@@ -1,25 +1,27 @@
 <?php require_once 'soporte.php'; 
-
+	
+	var_dump($_GET);
+	
 	$estadoSitio = 'normal';
 	$errores = '';
 
 	if (isset($_POST['recuperarContraseña']))
 	{
 		$destinatario = $_POST['email'];
-		$asunto = 'Seteo Contrasena';
-		$contenido = 'Tu nueva contrasena es: HOLA1234.';
+		$asunto = 'PETBOOK | Recuperar contraseña';
+		$contenido = 'emailContraseña';
 
 		$validacion = $validar->validarEmail($destinatario);
 	
 		if ($validacion === null)
 		{
-			$repositorio = new repositorioUsuarioJSON();
-			$existeEmail = $repositorio->existeEmail($destinatario);
+			$existeEmail = $repositorio->getRepositorioUsuario()->existeEmail($destinatario);
 
 			if ($existeEmail === true)
 			{
-				$enviadorRecuperarContraseña = new email($destinatario, $asunto, $contenido);
-				$enviadorRecuperarContraseña->enviarEmail();
+				$email = new email($destinatario, $asunto, $contenido);
+				$email->generarContraseña();
+				$email->enviarEmail();
 				$estadoSitio = 'modificado';
 			}
 			else

@@ -1,5 +1,5 @@
+/* Tipografías */
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
-
 
 body {
 	font-family: 'Montserrat', sans-serif;
@@ -15,103 +15,12 @@ button {
 	cursor: pointer;
 }
 
-.centrar {
-	text-align: center;
-}
-
-.lineaCorta {
-    background-color: #312633;
-    height: 5px;
-    width: 100px;
-    margin: 0 auto;
-}
-
-
-/* Menu principal */
-
-#menuPrincipal ul {
-    float: right;
-    text-align: right;
-    margin-top: 30px;
-}
-
-#menuPrincipal li a {
-    color: #000;
-}
-
-#menuPrincipal li a:hover {
-    border-top: 3px solid #312633;
-    background: none;
-}
-
-#menuPrincipal li a.seleccionado {
-    border-top: 3px solid #312633;
-    padding-top: 10px;
-}
-
-/* Barra de navegación Sticky */
-
-header .logoBlanco {
-    display: none;
-}
-
-header.sticky {
-  font-size: 18px;
-  line-height: 30px;
-  height: 30px;
-  background: #2C3942;
-  text-align: left;
-  padding-left: 20px;
-  transition: all 0.4s ease;
-  position: fixed;
-  width: 100%;
-  height: 50px;
-  z-index: 9999;
-}
-
-header.sticky img {
-    display: none;
-}
-
-header.sticky .logoBlanco {
-    display: initial;
-}
-
-header.sticky .logoBlanco img {
-    display: initial;
-    margin: 7px 0;
-}
-
-header.sticky #menuPrincipal {
-    padding-top: 0;
-    text-align: center;
-}
-
-header.sticky #menuPrincipal ul {
-    margin-top: 0;
-}
-
-header.sticky #menuPrincipal ul li a {
-    color:#fff;
-    font-size: 12px;
-}
-
-header.sticky #menuPrincipal ul li a.seleccionado {
-    border-top: 3px solid #fff;
-}
-
-header.sticky #menuPrincipal ul li #botonConectar {
-    background: #00e2c5;
-    color: #2C3942;
-    padding: 5px;
-}
-
-
 /* Banners */
 
 #seccionBanners {
 	background-image:url(../imagenes/img_sitio/banner-buscar.jpg);
-	height: 340px;
+	height: 390px;
+	width: 100%;
 	background-size: cover;
 }
 
@@ -120,7 +29,11 @@ header.sticky #menuPrincipal ul li #botonConectar {
     text-transform: uppercase;
     font-size: 44px;
     padding-bottom: 30px;
-    padding-top: 50px;
+}
+
+#seccionBanners .contenidoCentrado {
+	text-align: center;
+	padding-top: 140px;
 }
 
 #seccionBanners form input, #seccionBanners form select {
@@ -140,20 +53,41 @@ header.sticky #menuPrincipal ul li #botonConectar {
 }
 
 
-/* seccion categorias del sitio */
+/* Secciones del sitio */
 
-#categoriasSitio article h2 {
+#seccionesSitio {
+	background-color: #f8f8f8;
+	text-align: center;
+	width: 100%;
+}
+
+#seccionesSitio article {
+    display: inline-block;
+    padding: 20px 10px;
+    width: 30%;
+}
+
+#seccionesSitio article h2 {
     font-size: 16px;
     font-weight: bold;
     padding: 15px 0 5px 0;
 }
 
-#categoriasSitio article p {
+#seccionesSitio article p {
 	font-size: 14px;
 }
 
+
 /* Seccion de novedades */
 
+#seccionNovedades {
+	box-sizing: border-box;
+	padding: 20px;
+	position: static;
+	text-align: center;
+	width: 100%;
+	margin-top: 30px;
+}
 
 #seccionNovedades h2 {
     font-size: 40px;
@@ -164,7 +98,25 @@ header.sticky #menuPrincipal ul li #botonConectar {
 	font-weight: bold;
 }
 
-#seccionNovedades article h3 {
+.contenedorNoticias {
+	margin-top: 50px;
+}
+
+.posteoNoticia {
+    box-sizing: border-box;
+    padding: 5px;
+    width: 270px;
+    height: 270px;
+    display: inline-block;
+    position: relative;
+}
+
+.posteoNoticia img {
+    width:100%;
+    height:100%;
+}
+
+.posteoNoticia h3 {
     position: absolute;
     top: 35%;
     padding: 0 40px;
@@ -174,19 +126,13 @@ header.sticky #menuPrincipal ul li #botonConectar {
     line-height: 23px;
 }
 
-#seccionNovedades article  {
-    margin-top: 20px;
-}
-
-
 .overlayNoticia {
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.3);
+    width: 96%;
     position: absolute;
-    width: 314px;
-    height: 314px;
-    z-index: 9;
-    top: 0;
-    left: 33px;
+    top: 4px;
+    height: 96%;
+    z-index: 9
 }
 
 /* -- Secciones Conexión -- */
@@ -294,6 +240,116 @@ header.sticky #menuPrincipal ul li #botonConectar {
 }
 
 
+/* Barra de navegación */
+
+header {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    padding: 10px 0;
+    background-color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.4s ease;
+}
+
+input[type="checkbox"] {
+    width: initial !important;
+    margin: 20px 0 ;
+}
+
+.contenidoCentrado {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#logoPrincipal {
+    width: 30%;
+    display: inline-block;
+}
+
+#menuPrincipal {
+    width: 70%;
+    float:right;
+    padding-top: 40px;
+    text-align:right;
+}
+
+#menuPrincipal ul li {
+    margin-left: 40px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+#menuPrincipal li a {
+    color: #000;
+}
+
+#menuPrincipal li a:hover {
+    border-top: 3px solid #312633;
+    padding-top: 10px;
+}
+
+#menuPrincipal li a.seleccionado {
+    border-top: 3px solid #312633;
+    padding-top: 10px;
+}
+
+.lineaCorta {
+    background-color: #312633;
+    height: 5px;
+    width: 100px;
+    margin: 0 auto;
+}
+
+
+/* Barra de navegación Sticky */
+
+header .logoBlanco {
+    display: none;
+}
+
+header.sticky {
+  font-size: 18px;
+  line-height: 30px;
+  height: 30px;
+  background: #2C3942;
+  text-align: left;
+  padding-left: 20px;
+  transition: all 0.4s ease;
+}
+
+header.sticky img {
+    display: none;
+}
+
+header.sticky .logoBlanco {
+    display: initial;
+}
+
+header.sticky .logoBlanco img {
+    display: initial;
+}
+
+header.sticky #menuPrincipal {
+    padding-top: 0;
+    text-align: center;
+}
+
+header.sticky #menuPrincipal ul li a {
+    color:#fff;
+    border-top: none;
+    font-size: 12px;
+}
+
+header.sticky #menuPrincipal ul li #botonConectar {
+    background: #00e2c5;
+    color: #2C3942;
+    padding: 5px;
+}
+
+
 /* footer */
 
 footer {
@@ -306,9 +362,4 @@ footer {
     position: static;
     text-align: right;
     width: 100%;
-    margin-top: 30px;
 }
-
-
-
-

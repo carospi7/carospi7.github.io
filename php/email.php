@@ -10,25 +10,60 @@
   {
     $this->destinatario = $destinatario;  
     $this->asunto = $asunto;
-    $this->contenido = $contenido;
+    
+    if ($contenido === 'emailContraseña')
+    {
+      $emailContraseña = '<div>Hola !!</div>
+                          <div><br></div>
+                          <div></div>
+                          <div><br></div>
+                          <div>Ingresa al siguiente link para recuperarla...</div>
+                          <div></div>
+                          <div><br></div>
+
+                          <table width="700" border="0" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; border:2px solid #2C3942">
+                          <tr style="background:#2C3942">
+                            <td height="100" align="center" valign="middle"><a href="http://www.petbook.com.ar"><img src="http://www.disenoweb24.com.ar/petbook/logo-blanco.png" width="343" height="85" /></a></td>
+                          </tr>
+                          <tr>      
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr>      
+                            <td align="center"><h1 style="color:#00e2c5">¡Hola {{to.first_name}} ! Lamentamos que hayas olvidado tu contraseña :(</h1></td>
+                          </tr>
+                          <tr>      
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr>      
+                            <td align="center">Ingresa al siguiente link para recuperarla: {{enlaceWeb}}</td>
+                          </tr>
+                          <tr>      
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr style="background:#2C3942">
+                            <td align="center" style="padding:10px;"><a href="http://www.petbook.com.ar" style="color:#00e2c5; text-decoration:none;">www.petbook.com.ar</a></td>
+                          </tr>
+                        </table>';
+
+      $emailContraseña = str_replace("{{enlaceWeb}}", $destinatario, $emailContraseña);
+
+      $this->contenido = $emailContraseña;
+
+    }
+
   }
 
-  private function getDestinatario()
+  public function getDestinatario()
   {
     return $this->destinatario;
   }
 
-  private function getAsunto()
+  public function getAsunto()
   {
     return $this->asunto;
   }
 
-  public function setContenido($nuevoContenido)
-  {
-    $this->contenido = $nuevoContenido;
-  }
-
-  private function getContenido()
+  public function getContenido()
   {
     return $this->contenido;
   }
@@ -78,7 +113,12 @@
     $destinatario = $this->getDestinatario();
     $asunto = $this->getAsunto();
     $contenido = $this->getContenido();
-    mail ($destinatario, $asunto, $contenido);
+
+    $headers = "From: " . strip_tags('frammlopez@gmail.com') . "\r\n";
+    $headers .= "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+    mail ($destinatario, $asunto, $contenido, $headers);
   }
 
   public function guardarRegistroEmail($destinatario, $asunto, $contenido)

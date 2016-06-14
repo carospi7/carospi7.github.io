@@ -6,7 +6,7 @@ $password = '';
 $passwordConfirm = '';
 $email = '';
 $fechaNacimiento = '';
-		
+
 if ($_POST)
 {
 	if ($_POST['submit'] === 'registrarse')
@@ -20,21 +20,22 @@ if ($_POST)
 		$fechaNacimiento = $_POST['fechaNacimiento'];
 
 		// Validación
-		$erroresValiadcion = $validar->validacionUsuario($nombre, $apellido, $password, $passwordConfirm, $email, $fechaNacimiento);
+		$erroresValidacionRegistro = $validar->validacionUsuario($nombre, $apellido, $password, $passwordConfirm, $email, $fechaNacimiento);
 		$validarEmail = $repositorio->getRepositorioUsuario()->existeEmail($email);
 		
 		if ($validarEmail === true)
 	    {
-	        $erroresValiadcion = [];
-	        $erroresValiadcion['usuarioInvalido'] = 'El usuario ya existe';
+	        $erroresValidacionRegistro = [];
+	        $erroresValidacionRegistro['usuarioInvalido'] = 'El usuario ya existe';
 	    }
 	    
 		// Registrar usuario
-		if (empty($erroresValiadcion))
+		if (empty($erroresValidacionRegistro))
 		{	
 			$usuario = new usuario($nombre, $apellido, $password, $email, $fechaNacimiento);
 			$usuario->setPassword($password);
 			$usuario->generarId();
+			$usuario->guardarImagen();
 			$repositorio->getRepositorioUsuario()->guardarUsuario($usuario);
 
 			$nombre = '';
@@ -43,6 +44,7 @@ if ($_POST)
 			$passwordConfirm = '';
 			$email = '';
 			$fechaNacimiento = '';
+			$imagen = '';
 		}
 	}
 	else if ($_POST['submit'] === 'conectarse')
@@ -52,9 +54,9 @@ if ($_POST)
 		$password = $_POST['password'];
 
 		// Validación
-		$erroresValiadcion = $validar->validarConectarse($email, $password);
+		$erroresValiadcionConexion = $validar->validarConectarse($email, $password);
 
-		if (empty($erroresValiadcion))
+		if (empty($erroresValiadcionConexion))
 		{
 			// Conectar usuario
 			$usuario = $repositorio->getRepositorioUsuario()->buscarUsuarioPorEmail($email);
@@ -76,22 +78,19 @@ if ($_POST)
 <html>
 	
 	<head>
+		
+		<title>PETBOOK | Una red social para tu mascota</title>
+
 		<!-- codificación texto -->
 	    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>	
 
-	    <title>PETBOOK | Una red social para tu mascota</title>
-	    
 	    <!-- enlaces CSS y favicon-->
 	    <?php include_once 'html/elementos/enlaces_generales.php'; ?>
-	    
-		<!-- bootstrap -->
-	    <!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<!-- FIN bootstrap -->
+
 	    <!-- enlaces JS -->
 	  	<script type='text/javascript' src='js/JavaScript_sitios/index.js'></script>
-	  	<?php  include_once 'html/elementos/navegacion_sticky.php'; ?>
-	    
+	  	<?php include_once 'html/elementos/navegacion_sticky.php'; ?>
+
 	    <!-- pantalla mobile no escalable -->
 	    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'>
 	
@@ -103,7 +102,7 @@ if ($_POST)
 
 		<section id='seccionBanners'>
 		
-			<div class='container centrar'>
+			<div class='contenidoCentrado'>
 		
 				<h1>¿Querés encontrar a tu mascota?</h1>
 				<form>
@@ -131,11 +130,11 @@ if ($_POST)
 
 		</section>
 
-		<section id='categoriasSitio' class="jumbotron">
+		<section id='seccionesSitio'>
 			
-			<div class="container centrar">
+			<div class='contenidoCentrado'>
 			
-				<article class="col-md-4">
+				<article name='animalesEnAdopcion'>
 				
 					<img src='imagenes/img_sitio/mascotas-perdidas.png' class='seccionesImagen' width='276' height='293'>	
 					<h2>MASCOTAS PERDIDAS</h2>
@@ -143,7 +142,7 @@ if ($_POST)
 
 				</article>
 
-				<article class="col-md-4">
+				<article name='animalesEnAdopcion'>
 				
 					<img src='imagenes/img_sitio/adopciones.png' class='seccionesImagen' width='276' height='293'>	
 					<h2>MASCOTAS EN ADOPCIÓN</h2>
@@ -151,7 +150,7 @@ if ($_POST)
 
 				</article>
 
-				<article class="col-md-4">
+				<article name='animalesEnAdopcion'>
 				
 					<img src='imagenes/img_sitio/novedades.png' class='seccionesImagen' width='276' height='293'>	
 					<h2>NUESTROS CONSEJOS</h2>
@@ -163,50 +162,50 @@ if ($_POST)
 
 		</section>
 		
-		<section id='seccionNovedades' class='centrar container'>
+		<section id='seccionNovedades' class='contenidoCentrado'>
 			
 			<div class='lineaCorta'></div>
 			<h2><span>CONSEJOS</span> PARA EL <span>CUIDADO</span> DE TUS ANIMALES</h2>
 			<div class='lineaCorta'></div>
 			
-			<div class=''>
+			<div class='contenedorNoticias'>
 				
-				<article class="col-md-4">
+				<article class='posteoNoticia'>
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class="col-md-4">
+				<article class='posteoNoticia'>
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class="col-md-4">
+				<article class='posteoNoticia'>
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class="col-md-4">
+				<article class='posteoNoticia'>
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class="col-md-4">
+				<article class='posteoNoticia'>
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
 					<h3>Las mascotas mejoran la salud de sus dueños: 9 claves</h3>
 			
 				</article>
-				<article class="col-md-4">
+				<article class='posteoNoticia'>
 			
 					<img src='imagenes/img_sitio/imagen-noticia.jpg' width='314' height='314'>
 					<div class='overlayNoticia'></div>
@@ -226,35 +225,24 @@ if ($_POST)
 		
 		</section>
 
-
-
 		<!-- Conectarse -->
 		<section id='conectarse'>
 			
 			<h1>Conectarse</h1>
 
 			<form action='index.php' method='POST' enctype='multipart/form-data'>
+				
+				<!-- Mostrar errores conexion -->
+				<?php if (!empty($erroresValiadcionConexion)) { ?>
+				<div style='width:300px;background-color:red'>
+				
+					<ul><?php foreach ($erroresValiadcionConexion as $error) { ?>
 			
-				<?php if (!empty($erroresConexion)) { ?>
+						<li><?php echo $error ?></li>
 			
-					<div style='width:300px;background-color:red'>
+					<?php } ?></ul>
 			
-						<ul>
-			
-							<?php foreach ($erroresConexion as $error) { ?>
-			
-								<li>
-			
-									<?php echo $error ?>
-			
-								</li>
-			
-							<?php } ?>
-			
-						</ul>
-			
-					</div>
-			
+				</div>
 				<?php } ?>
 				<div>
 				
@@ -278,7 +266,7 @@ if ($_POST)
 					<input id='submit' type='submit' name='submit' value='conectarse' />
 				
 				</div>
-<div>
+				<div>
 					
 					<a href="recuperarContraseña.php">Olvide mi password</a>
 
@@ -294,26 +282,17 @@ if ($_POST)
 			<h1>Registrar usuario</h1>
 			<form action='index.php' method='POST' enctype='multipart/form-data'>
 				
-				<?php if (!empty($erroresRegistro)) { ?>
+				<!-- Mostrar errores registro -->
+				<?php if (!empty($erroresValidacionRegistro)) { ?>
+				<div style='width:300px;background-color:red'>
 				
-					<div style='width:300px;background-color:red'>
-						
-						<ul>
-						
-							<?php foreach ($erroresRegistro as $error) { ?>
-						
-								<li>
-		
-									<?php echo $error ?>
-		
-								</li>
-						
-							<?php } ?>
-						
-						</ul>
+					<ul><?php foreach ($erroresValidacionRegistro as $error) { ?>
 					
-					</div>
+						<li><?php echo $error ?></li>
 					
+					<?php } ?></ul>
+					
+				</div>
 				<?php } ?>
 				<div>
 
@@ -360,7 +339,7 @@ if ($_POST)
 				<div>
 
 					<label for='imagen'>Avatar:</label>
-					<input id='imagen' name='imagen' type='file'/>
+					<input id='imagen' name='imagen' type='file' value='<?php echo $imagen ?>' />
 
 				</div>
 				<br>
@@ -379,11 +358,4 @@ if ($_POST)
 
 	</body>
 
-
 </html>
-
-cuando inicio sesion,
-
-cambio los datos del usuario,
-
-tambien los tengo que cambiar en sesion. sino me genera un error,
