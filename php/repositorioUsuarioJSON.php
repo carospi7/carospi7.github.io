@@ -154,15 +154,33 @@ public function modificarRegistro($id, $nombre, $apellido, $password, $email, $f
 
 	foreach ($modificacion as $key => $value)
 	{
-		var_dump(json_encode($value));
-		echo "<br>";
-		echo "<br>";
+		$objetos .= json_encode($value);
 	}
-	var_dump($objetos);exit;
-	exit;
-	$modificacion = json_encode($modificacion);
-	var_dump($modificacion);exit;
-	file_put_contents($ruta, $modificacion.PHP_EOL);
+
+	//$modificacion = json_encode($modificacion);
+	file_put_contents($ruta, $objetos.PHP_EOL);
+}
+
+public function modificarPassword($id, $password)
+{
+	$ruta = 'usuarios/usuarios.json';
+	$archivo = fopen($ruta, 'r+');
+	$modificacion = fread($archivo, filesize($ruta));
+	$modificacion = explode(PHP_EOL, $modificacion);
+	array_pop($modificacion);
+	$modificacion = $this->convertirObjetosEnUsuarios($modificacion);
+	$modificacion[$id-1]['password'] = password_hash($password, PASSWORD_DEFAULT);
+	$objetos = '';
+	
+
+	foreach ($modificacion as $key => $value)
+	{
+		$objetos .= json_encode($value).PHP_EOL;
+	}
+	
+	//$modificacion = json_encode($modificacion);
+	
+	file_put_contents($ruta, $objetos);
 }
 
 } ?>

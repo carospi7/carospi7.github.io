@@ -4,24 +4,18 @@
   private $destinatario;
   private $asunto;
   private $contenido;
+  private $password;
   private $fechaCreacion;
 
-  public function __construct ($destinatario, $asunto, $contenido)
+  public function __construct (usuario $destinatario, $asunto, $contenido)
   {
-    $this->destinatario = $destinatario;  
+    $this->destinatario = $destinatario;   
     $this->asunto = $asunto;
-    
+    $this->password = $this->generarContraseña();
+
     if ($contenido === 'emailContraseña')
     {
-      $emailContraseña = '<div>Hola !!</div>
-                          <div><br></div>
-                          <div></div>
-                          <div><br></div>
-                          <div>Ingresa al siguiente link para recuperarla...</div>
-                          <div></div>
-                          <div><br></div>
-
-                          <table width="700" border="0" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; border:2px solid #2C3942">
+      $emailContraseña = '<table width="700" border="0" cellspacing="0" cellpadding="0" style="font-family:Arial, Helvetica, sans-serif; border:2px solid #2C3942">
                           <tr style="background:#2C3942">
                             <td height="100" align="center" valign="middle"><a href="http://www.petbook.com.ar"><img src="http://www.disenoweb24.com.ar/petbook/logo-blanco.png" width="343" height="85" /></a></td>
                           </tr>
@@ -29,13 +23,13 @@
                             <td>&nbsp;</td>
                           </tr>
                           <tr>      
-                            <td align="center"><h1 style="color:#00e2c5">¡Hola {{to.first_name}} ! Lamentamos que hayas olvidado tu contraseña :(</h1></td>
+                            <td align="center"><h1 style="color:#00e2c5">¡Hola {{nombre}} ! Lamentamos que hayas olvidado tu contraseña :(</h1></td>
                           </tr>
                           <tr>      
                             <td>&nbsp;</td>
                           </tr>
                           <tr>      
-                            <td align="center">Ingresa al siguiente link para recuperarla: {{enlaceWeb}}</td>
+                            <td align="center">Ingresa al siguiente link para recuperarla: <a href="{{enlaceWeb}}">Recuperar contraseña</a></td>
                           </tr>
                           <tr>      
                             <td>&nbsp;</td>
@@ -43,12 +37,12 @@
                           <tr style="background:#2C3942">
                             <td align="center" style="padding:10px;"><a href="http://www.petbook.com.ar" style="color:#00e2c5; text-decoration:none;">www.petbook.com.ar</a></td>
                           </tr>
-                        </table>';
+                          </table>';
 
-      $emailContraseña = str_replace("{{enlaceWeb}}", $destinatario, $emailContraseña);
-
+      $nuevaContraseña = $this->getPassword();
+      $emailContraseña = str_replace("{{enlaceWeb}}", 'http://localhost/php/GitHub/seteoPass.php?nuevaContraseña='.$nuevaContraseña, $emailContraseña);
+      $emailContraseña = str_replace("{{nombre}}",  $destinatario->getNombre(), $emailContraseña);
       $this->contenido = $emailContraseña;
-
     }
 
   }
@@ -68,19 +62,28 @@
     return $this->contenido;
   }
 
+  public function getPassword()
+  {
+    return $this->password;
+  }  
+
   public function generarId()
   {
-    if (!file_exists('usuarios/registroContraseña.json'))
+    if (file_exists('usuarios/registroContraseña.json'))
     {
-      return 1;
+      $inicial = 1;
+      
+      return $inicial;
     }
+    else
+    {
+      $emails = file_get_contents('usuarios/registroContraseña.json');
+      $emailsArray = explode(PHP_EOL, $emails);
+      $ultimoEmail = $emailsArray[ count($emailsArray) - 2 ];
+      $ultimoEmailArray = json_decode($ultimoEmail, true);
 
-    $emails = file_get_contents('usuarios/registroContraseña.json');
-    $emailsArray = explode(PHP_EOL, $emais);
-    $ultimoEmail = $emailsArray[ count($emailsArray) - 2 ];
-    $ultimoEmailArray = json_decode($ultimoEmail, true);
-
-    return ($ultimoEmailArray['id'] + 1);
+      return ($ultimoEmailArray['id'] - 1);
+    }
   }
 
   public function generarContraseña()
@@ -114,27 +117,33 @@
     $asunto = $this->getAsunto();
     $contenido = $this->getContenido();
 
-    $headers = "From: " . strip_tags('frammlopez@gmail.com') . "\r\n";
+    $headers = "From: Petbook <'password@petbook.com.ar'>\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-    mail ($destinatario, $asunto, $contenido, $headers);
+    $nuevaContraseña = $this->guardarRegistroEmail($destinatario, $asunto, $contenido);
+
+    mail ($destinatario->getEmail(), $asunto, $contenido, $headers);
   }
 
   public function guardarRegistroEmail($destinatario, $asunto, $contenido)
   {
-    $id = $this->generarId();
-    $contraseña = $this->generarContraseña();
+    $prueba = new repositorioUsuarioJSON();
+    $id = $destinatario->getId();
+    $nuevaContraseña = $this->getPassword();
     $fechaCreacion = $this->generarFecha();
 
-    $registroEmail = $this->descompilarEmail($id, $destinatario, $asunto, $contenido, $contraseña, $fechaCreacion);
+    $registroEmail = $this->descompilarEmail($id, $destinatario, $asunto, $contenido, $nuevaContraseña, $fechaCreacion);
     $emailJSON = json_encode($registroEmail);
     file_put_contents('usuarios/registroContraseña.json', $emailJSON . PHP_EOL, FILE_APPEND);
+
+    return $nuevaContraseña;
   }
 
   private function descompilarEmail($id, $destinatario, $asunto, $contenido, $contraseña, $fechaCreacion)
   {
     $emailArray = [];
+    $emailArray['id'] = $id;
     $emailArray['destinatario'] = $destinatario;
     $emailArray['asunto'] = $asunto;
     $emailArray['contenido'] = $contenido;

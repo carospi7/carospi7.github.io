@@ -1,6 +1,29 @@
-<?php require_once 'soporte.php'; 
-	
-	var_dump($_GET);
+<?php require_once 'soporte.php';
+
+	if ($_GET)
+	{
+		if ($_GET['nuevaContraseña'])
+		{
+			$nuevaContraseña = $_GET['nuevaContraseña'];
+			$archivo = file_get_contents("usuarios/registroContraseña.json");
+			$archivo = explode(PHP_EOL, $archivo);
+			array_pop($archivo);
+
+			$miEmail = '';
+
+			foreach ($archivo as $key => $usuario)
+			{
+				$variable = json_decode($usuario, 1);
+
+				if ($variable['contraseña'] === $nuevaContraseña)
+				{
+					$passwordNew = $variable['contraseña'];
+					$emailNew = $variable['destinatario'];
+					$teTengo = $repositorio->getRepositorioUsuario()->buscarUsuarioPorEmail($emailNew);
+				}
+			}
+		}
+	}
 	
 	$estadoSitio = 'normal';
 	$errores = '';
@@ -8,7 +31,7 @@
 	if (isset($_POST['recuperarContraseña']))
 	{
 		$destinatario = $_POST['email'];
-		$asunto = 'PETBOOK | Recuperar contraseña';
+		$asunto = 'Recuperar contraseña';
 		$contenido = 'emailContraseña';
 
 		$validacion = $validar->validarEmail($destinatario);
@@ -19,8 +42,7 @@
 
 			if ($existeEmail === true)
 			{
-				$email = new email($destinatario, $asunto, $contenido);
-				$email->generarContraseña();
+				$email = new email($repositorio->getRepositorioUsuario()->buscarUsuarioPorEmail($destinatario), $asunto, $contenido);
 				$email->enviarEmail();
 				$estadoSitio = 'modificado';
 			}
