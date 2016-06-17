@@ -1,2 +1,3 @@
 {"id":1,"nombre":"marcelo","apellido":"jose","password":"$2y$10$vKbJDx9e3InHrRyQPIEs9u29Yg6jqdfRZA9tF6kccEM4tVsdOj4ni","email":"marcelo@gmail.com","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
 {"id":2,"nombre":"Francisco","apellido":"L\u00f3pez","password":"$2y$10$JNTGhAm3EXo\/Wjmto9UeP.Rg51ePrjQoI5yk0l\/F03WAWO9d\/0kti","email":"frammlopez@gmail.com","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
+{"id":3,"nombre":"Francisco","apellido":"L\u00f3pez","password":"$2y$10$G66x.EZQ8OfzAqySAAkgpewXFnsNryX0tQm3NWY\/xcXpueJAZ.QZ2","email":"carolino@hola.com","fechaNacimiento":"28\/01\/1994","rutaImagen":null}
