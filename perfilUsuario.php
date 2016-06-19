@@ -1,8 +1,12 @@
 <?php require_once 'soporte.php'; 
 
 $usuarioSesion = $_SESSION['usuarioLogueado'];
+
 $id = $usuarioSesion->getid();
-$usuarioModificar = $repositorio->getRepositorioUsuario()->getUsuarioId($id);
+
+$usuarioModificar = $repositorio->getRepositorioUsuario()->buscarUsuarioId($id);
+
+$errores = [];
 
 if ($_POST)
 {
