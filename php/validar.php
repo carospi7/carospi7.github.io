@@ -45,7 +45,7 @@
     public function validarConectarse($email, $password)
     {
         $errores = [];
-
+    
         if ($this->repositorioUsuario->existeEmail($email) === true)
         {
             if ($this->repositorioUsuario->usuarioValido($email, $password))
@@ -69,7 +69,7 @@
     // Validaciones
     public function validarNombre($nombre)
     {
-        $expresionNombre = '[a-zA-Z]';
+        $expresionNombre = '/^[a-zA-Z]+$/';
         
         if ($nombre == '')
         {   
@@ -77,7 +77,7 @@
         }
         else
         {
-            if (strlen($nombre) > 1 && eregi($expresionNombre, $nombre))
+            if (strlen($nombre) > 1 && preg_match($expresionNombre, $nombre))
             {
                 return null;
             }
@@ -90,7 +90,7 @@
 
     public function validarApellido($apellido)
     {
-        $expresionApellido = '[a-zA-Z]';
+        $expresionApellido = '/^[a-zA-Z]+$/';
         
         if ($apellido == '')
         {   
@@ -98,7 +98,7 @@
         }
         else
         {
-            if (strlen($apellido) > 1 && eregi($expresionApellido, $apellido))
+            if (strlen($apellido) > 1 && preg_match($expresionApellido, $apellido))
             {
                 return null;
             }
@@ -111,7 +111,7 @@
 
     public function validarPassword($password)
     {
-        $expresionContraseña = '.{4,}';
+        $expresionContraseña = '/^.{4,30}$/';
 
         if ($password == '')
         {
@@ -121,7 +121,7 @@
         {   
             if (strlen($password) > 3)
             {
-                if (eregi($expresionContraseña, $password))
+                if (preg_match($expresionContraseña, $password))
                 {
                     return null;
                 }
@@ -177,8 +177,7 @@
 
     public function validarFechaNacimiento($fechaNacimiento)
     {
-        //$expresionFechaNacimiento = '(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[/\\/](19|20)\d{2}';
-        $expresionFechaNacimiento = '.{10}';
+        $expresionFechaNacimiento = '/^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/](19|20)\d{2}$/';
         
         if ($fechaNacimiento == '')
         {
@@ -186,7 +185,7 @@
         }
         else
         {
-            if (eregi($expresionFechaNacimiento, $fechaNacimiento))
+            if (preg_match($expresionFechaNacimiento, $fechaNacimiento))
             {
                 return null;
             }

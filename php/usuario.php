@@ -1,15 +1,16 @@
-<?php class usuario {
-
+<?php class usuario
+{
 	private $id;
 	private $nombre;
 	private $apellido;
 	private $password;
 	private $email;
 	private $fechaNacimiento;
-	private $rutaImagen;
+	private $fechaCreacion;
+	private $fechaModificacion;
+	private $idImagenPerfil;
 
-	// contructor
-	public function __construct( $nombre, $apellido, $password, $email, $fechaNacimiento )
+	public function __construct($nombre, $apellido, $password, $email, $fechaNacimiento)
 	{
 		$this->nombre = $nombre;
 		$this->apellido = $apellido;
@@ -18,7 +19,6 @@
 		$this->fechaNacimiento = $fechaNacimiento;
 	}
 
-	// funciones GET
 	public function getId()
 	{
 		return $this->id;
@@ -49,28 +49,23 @@
 		return $this->fechaNacimiento;
 	}
 
-	public function getImagenPerfil()
+	public function getFechaCreacion()
 	{
-		return $this->rutaImagen;
-	}
-	
-	// funciones SET
-	public function generarId()
-	{
-		if ( !file_exists('usuarios/usuarios.json') )
-		{
-			return 1;
-		}
-
-		$usuarios = file_get_contents( 'usuarios/usuarios.json' );
-		$usuariosArray = explode( PHP_EOL, $usuarios );
-		$ultimoUsuario = $usuariosArray[ count($usuariosArray) - 2 ];
-		$ultimoUsuarioArray = json_decode( $ultimoUsuario, true );
-
-		$this->id = ( $ultimoUsuarioArray['id'] + 1 );
+		return $this->fechaCreacion;
 	}
 
-	public function setId($id) {
+	public function getFechaModificacion()
+	{
+		return $this->fechaModificacion;
+	}
+
+	public function getIdImagenPerfil()
+	{
+		return $this->idImagenPerfil;
+	}
+
+	public function setId($id)
+	{
 		$this->id = $id;
 	}
 
@@ -99,18 +94,19 @@
 		$this->fechaNacimiento = $fechaNacimiento;
 	}
 
-	public function guardarImagen()
+	public function setFechaCreacion($fechaCreacion)
 	{
-		if ($_FILES['imagen']['error'] == UPLOAD_ERR_OK)
-		{
-			$rutaArchivoSubido = $_FILES['imagen']['tmp_name'];
-			$nombreImagenSubida = $_FILES['imagen']['name'];
-			$extension = pathinfo($nombreImagenSubida, PATHINFO_EXTENSION);
-			$rutaArchivoGuardar = 'imagenes/img_perfiles';
-			$nombreImagenGuardar = $this->getId() . '.' . $extension;
-			
-			move_uploaded_file ($rutaArchivoSubido, "$rutaArchivoGuardar/$nombreImagenGuardar");
-			$this->rutaImagen="$rutaArchivoGuardar/$nombreImagenGuardar";
-		}
+		$this->fechaCreacion = $fechaCreacion;
 	}
+
+	public function setFechaModificacion($fechaModificacion)
+	{
+		$this->fechaModificacion = $fechaModificacion;
+	}
+
+	public function setIdImagenPerfil($idImagenPerfil)
+	{
+		$this->idImagenPerfil = $idImagenPerfil;
+	}
+
 } ?>

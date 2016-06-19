@@ -1,185 +1,148 @@
-<?php class repositorioUsuarioSQL extends repositorioUsuario {
-
-public function existeEmail($email)
+<?php class repositorioUsuarioSQL extends repositorioUsuario
 {
-	$usuarios = $this->traerUsuarios();
-	$objetosEnUsuarios = $this->convertirObjetosEnUsuarios($usuariosJson);
-	
-	foreach ($objetosEnUsuarios as $key => $usuario)
+	private $conexion;
+
+	public function __construct($conexion)
 	{
-		$usuarioCreado = $this->compilarUsuario($usuario);
-
-		if ($email == $usuarioCreado->getEmail())
-		{
-			return true;
-		}
+		$this->conexion = $conexion;
 	}
 
-	return false;
-}
-
-public function traerUsuarios()
-{
-	$usuarios = $this->db->prepare("SELECT * FROM usuarios");
-	$usuarios = $this->db->execute();
-
-	return $usuarios;
-}
-
-public function convertirObjetosEnUsuarios(array $usuariosJson)
-{	
-	$objetosEnUsuarios = [];
-
-	foreach ($usuariosJson as $value)
-	{	
-		$objetosEnUsuarios[] = json_decode($value, 1);
-	}
-
-	return $objetosEnUsuarios;
-}
-
-public function compilarUsuario($usuario)
-{	
-	$nombre = $usuario['nombre'];
-	$apellido = $usuario['apellido'];
-	$password = $usuario['password'];
-	$email = $usuario['email'];
-	$fechaNacimiento = $usuario['fechaNacimiento'];
-	$usuarioCreado = new usuario ($nombre, $apellido, $password, $email, $fechaNacimiento);
-	$usuarioCreado->setId($usuario["id"]);
-
-	return $usuarioCreado;
-}
-
-// ------------------------------
-
-public function guardarUsuario(usuario $usuario)
-{	
-	$usuarioArray = $this->descompilarUsuario($usuario);
-	$usuarioJSON = json_encode($usuarioArray);
-	file_put_contents('usuarios/usuarios.json', $usuarioJSON . PHP_EOL, FILE_APPEND);
-}
-
-private function descompilarUsuario(usuario $usuario)
-{
-	$usuarioArray = [];
-	$usuarioArray['id'] = $usuario->getId();
-	$usuarioArray['nombre'] = $usuario->getNombre();
-	$usuarioArray['apellido'] = $usuario->getApellido();
-	$usuarioArray['password'] = $usuario->getPassword();
-	$usuarioArray['email'] = $usuario->getEmail();
-	$usuarioArray['fechaNacimiento'] = $usuario->getFechaNacimiento();
-	$usuarioArray['rutaImagen'] = $usuario->getImagenPerfil();
-
-	return $usuarioArray;
-}
-
-private function arrayUsuario(Array $usuarioArray)
-{
-	$usuario = new usuario($usuarioArray);
-	$usuario->setId($usuarioArray["id"]);
-}
-
-// ------------------------------
-
-public function usuarioValido($email, $password)
-{
-	$usuario = $this->buscarUsuarioPorEmail($email);
-	
-	if ($usuario)
-	{	
-		if (password_verify($password, $usuario->getPassword()))
-		{
-			return true;
-		}
-	}
-	
-	return false;
-}
-
-// BUSCAR USUARIOS POR EMAIL
-public function buscarUsuarioPorEmail($email)
-{	
-	$usuariosJson = $this->traerUsuariosJson();
-	$objetosEnUsuarios = $this->convertirObjetosEnUsuarios($usuariosJson);
-	
-	foreach ($objetosEnUsuarios as $key => $usuario)
-	{	
-		$objetoUsuario = $this->compilarUsuario($usuario);
+	// Devuelve true si el email existe en la base de datos
+	public function existeEmail($email)
+	{
+		$usuarioEmail = $this->conexion->prepare("SELECT * FROM usuarios WHERE email = :email");
 		
-		if ($email == $objetoUsuario->getEmail())
+		$usuarioEmail->bindValue(":email", $email, PDO::PARAM_STR);
+
+		$usuarioEmail->execute();
+
+		if ($usuarioEmail->rowCount() === 0)
 		{
-			return $objetoUsuario;
+			return false;
 		}
+
+		return true;
 	}
 
-	return null;
-}
-
-// BUSCAR USUARIOS POR NRO. ID
-public function getUsuarioId($id)
-{	
-	$usuariosJson = $this->traerUsuariosJson();
-	
-	$objetosEnUsuarios = $this->convertirObjetosEnUsuarios($usuariosJson);
-	
-	foreach ($objetosEnUsuarios as $key => $usuario)
+	// Devuelve el usuario en base al email consultado
+	public function buscarUsuarioEmail($email)
 	{	
-		$objetoUsuario = $this->compilarUsuario($usuario);
+		$usuario = $this->conexion->prepare("SELECT * FROM usuarios WHERE email = :email");
 		
-		if ($id == $objetoUsuario->getId())
+		$usuario->bindValue(":email", $email);
+
+		$usuario->execute();
+
+		if ($usuario->rowCount() === 0)
 		{
-			return $objetoUsuario;
+			return false;
+		}
+
+		$usuario = $usuario->fetch(PDO::FETCH_ASSOC);
+
+		return $this->arrayUsuario_objetoUsuario($usuario);
+	}
+
+	// Devuelve el usuario en base al ID consultado
+	public function buscarUsuarioId($id)
+	{	
+		$usuario = $this->conexion->prepare("SELECT * FROM usuarios WHERE id = :id");
+		
+		$usuario->bindValue(":id", $id, PDO::PARAM_INT);
+
+		$usuario->execute();
+
+		if ($usuario->rowCount() === 0)
+		{
+			return false;
+		}
+
+		$usuario = $usuario->fetch(PDO::FETCH_ASSOC);
+
+		return $this->arrayUsuario_objetoUsuario($usuario);
+	}
+
+	// Devuelve un objeto usuario a partir de un array usuario
+	public function arrayUsuario_objetoUsuario(array $usuario)
+	{	
+		$id = $usuario['id'];
+		$nombre = $usuario['nombre'];
+		$apellido = $usuario['apellido'];
+		$password = $usuario['password'];
+		$email = $usuario['email'];
+		$fechaNacimiento = $usuario['fecha_nacimiento'];
+		$idImagenPerfil = $usuario['id_usuario_imagen_perfil'];
+		$fechaCreacion = $usuario['fecha_creacion'];
+		$fechaModificacion = $usuario['fecha_ultima_modificacion'];
+
+		$usuarioObjeto = new usuario ($nombre, $apellido, $password, $email, $fechaNacimiento);
+		$usuarioObjeto->setId($id);
+		$usuarioObjeto->setIdImagenPerfil($idImagenPerfil);
+		$usuarioObjeto->setFechaCreacion($fechaCreacion);
+		$usuarioObjeto->setFechaModificacion($fechaModificacion);
+
+		return $usuarioObjeto;
+	}
+
+	public function guardarUsuario(usuario $usuario)
+	{	
+		$id = $usuario->getId();
+		$fechaActual = repositorioUsuarioSQL::fechaActual();
+
+		if ($id === null)
+		{
+			$guardarUsuario = $this->conexion->prepare("INSERT INTO usuarios (nombre, apellido, password, email, fecha_nacimiento, id_usuario_imagen_perfil, fecha_creacion, fecha_ultima_modificacion) VALUES (:nombre, :apellido, :password, :email, :fecha_nacimiento, :id_usuario_imagen_perfil, :fecha_creacion, :fecha_modificacion)");
+
+			$guardarUsuario->bindValue(":fecha_creacion", $fechaActual);
+			$guardarUsuario->bindValue(":fecha_modificacion", null);
+		}
+		else
+		{
+			$guardarUsuario = $this->conexion->prepare("UPDATE usuarios SET nombre = :nombre, apellido = :apellido, password = :password, email = :email, fecha_nacimiento = :fecha_nacimiento, id_usuario_imagen_perfil = :id_usuario_imagen_perfil, fecha_ultima_modificacion = :fechaModificacion");
+
+			$guardarUsuario->bindValue(":id", $usuario->getId());
+			$guardarUsuario->bindValue(":fechaModificacion", $fechaActual);
+		}
+
+		$guardarUsuario->bindValue(":nombre", $usuario->getNombre());
+		$guardarUsuario->bindValue(":apellido", $usuario->getApellido());
+		$guardarUsuario->bindValue(":password", $usuario->getPassword());
+		$guardarUsuario->bindValue(":email", $usuario->getEmail());
+		$guardarUsuario->bindValue(":fecha_nacimiento", $usuario->getFechaNacimiento());
+		$guardarUsuario->bindValue(":id_usuario_imagen_perfil", null);
+
+		$guardarUsuario->execute();
+
+		if ($id === null)
+		{
+			$usuario->setId($this->conexion->lastInsertId());
+			$usuario->setFechaCreacion($fechaActual);
 		}
 	}
 
-	return null;
-}
-
-public function modificarRegistro($id, $nombre, $apellido, $password, $email, $fechaNacimiento)
-{
-	$ruta = 'usuarios/usuarios.json';
-	$archivo = fopen($ruta, 'r+');
-	$modificacion = fread($archivo, filesize($ruta));
-	$modificacion = explode(PHP_EOL, $modificacion);
-	array_pop($modificacion);
-	$modificacion = $this->convertirObjetosEnUsuarios($modificacion);
-	$modificacion[$id-1]['nombre'] = $nombre;
-	$modificacion[$id-1]['apellido'] = $apellido;
-	$modificacion[$id-1]['password'] = $password;
-	$modificacion[$id-1]['email'] = $email;
-	$modificacion[$id-1]['fechaNacimiento'] = $fechaNacimiento;
-	$objetos = '';
-
-	foreach ($modificacion as $key => $value)
+	// Devuelve true si la contraseña del usuario existe
+	public function usuarioValido($email, $password)
 	{
-		$objetos .= json_encode($value);
+		$usuario = $this->buscarUsuarioEmail($email);
+		
+		if ($usuario)
+		{	
+			if (password_verify($password, $usuario->getPassword()))
+			{
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
-	//$modificacion = json_encode($modificacion);
-	file_put_contents($ruta, $objetos.PHP_EOL);
-}
-
-public function modificarPassword($id, $password)
-{
-	$ruta = 'usuarios/usuarios.json';
-	$archivo = fopen($ruta, 'r+');
-	$modificacion = fread($archivo, filesize($ruta));
-	$modificacion = explode(PHP_EOL, $modificacion);
-	array_pop($modificacion);
-	$modificacion = $this->convertirObjetosEnUsuarios($modificacion);
-	$modificacion[$id-1]['password'] = password_hash($password, PASSWORD_DEFAULT);
-	$objetos = '';
-	
-
-	foreach ($modificacion as $key => $value)
+	// Devuelve la fecha actual
+	static function fechaActual()
 	{
-		$objetos .= json_encode($value).PHP_EOL;
+		$fecha = date_create();
+		$fechaFormato = date_format($fecha, 'Y-m-d H:i:s');
+
+		return $fechaFormato;
 	}
-	
-	//$modificacion = json_encode($modificacion);
-	
-	file_put_contents($ruta, $objetos);
-}
 
 } ?>

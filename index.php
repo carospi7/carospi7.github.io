@@ -34,8 +34,7 @@ if ($_POST)
 		{	
 			$usuario = new usuario($nombre, $apellido, $password, $email, $fechaNacimiento);
 			$usuario->setPassword($password);
-			$usuario->generarId();
-			$usuario->guardarImagen();
+			//$usuario->guardarImagen();
 			$repositorio->getRepositorioUsuario()->guardarUsuario($usuario);
 
 			$nombre = '';
@@ -59,7 +58,7 @@ if ($_POST)
 		if (empty($erroresValiadcionConexion))
 		{
 			// Conectar usuario
-			$usuario = $repositorio->getRepositorioUsuario()->buscarUsuarioPorEmail($email);
+			$usuario = $repositorio->getRepositorioUsuario()->buscarUsuarioEmail($email);
 			$auth->conectarse($usuario);
 			
 			// Recordar usuario
@@ -277,6 +276,22 @@ if ($_POST)
 		</section>
 
 		<!-- Registrarse -->
+		<?php
+
+			if ($_POST['submit'] === 'registrarse' && !empty($erroresValidacionRegistro))
+			{ ?>
+				<script type='text/javascript' src='js/JavaScript_sitios/index.js'></script>
+				<script>
+					window.onload = function()
+					{
+						window.document.getElementById('navegacionContarse').style.display='initial';
+						window.document.getElementById('registrarse').style.display='initial';
+						window.document.getElementById('blackLayer').style.display='initial';	
+					}
+				</script>
+				<script type='text/javascript' src='js/JavaScript_sitios/index.js'></script>
+			<?php } ?>
+
 		<section id='registrarse'>
 
 			<h1>Registrar usuario</h1>
